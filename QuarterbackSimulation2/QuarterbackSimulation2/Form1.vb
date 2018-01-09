@@ -14,7 +14,8 @@
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
         Dim bonus
-        bonus = CInt(0) + 1
+
+        bonus = CInt(0)
         If e.KeyCode = Keys.D Then
             pboxReceiver.Left += 10
         ElseIf e.KeyCode = Keys.A Then
@@ -35,12 +36,21 @@
             pboxDefender.Top += 10
         End If
 
-        While (Collision(pboxReceiver, pboxBall) = True)
-            lblScore.Text = "Score: " & bonus + 1
-        End While
-        For Each (
- Next
-        lblDefendScore.Text = "Score: " & bonus
+        If (Collision(pboxReceiver, pboxBall) = True) Then
+            lblScore.Text = "Receiver Score: " & bonus + ++1
+        End If
+
+        If (Collision(pboxReceiver, pboxDefender) = True) Then
+            lblDefendScore.Text = "Defender Score: " & bonus + 1
+        End If
+        If Collision(pboxReceiver, pboxBall) = True Then
+            pboxBall.Top = Int(Rnd() * (520 - 2 * pboxBall.Height) + pboxBall.Height)
+            pboxBall.Left = Int(Rnd() * (550 - 2 * pboxBall.Width) + pboxBall.Width)
+            Debug.WriteLine("Ball top: " & pboxBall.Top)
+            Debug.WriteLine("Ball left: " & pboxBall.Left)
+            bonus = bonus + 1
+            lblScore.Text = "Receiver Score: " & bonus
+        End If
     End Sub
 
     Private Sub PictureBox19_Click(sender As Object, e As EventArgs) Handles pboxDefender.Click
