@@ -15,8 +15,10 @@
         Dim totalScore As Integer
         Dim totalScore2 As Integer
         Dim score
+
         totalScore = CInt(0) + 1
         score = CInt(0)
+        'sets controls for defender and receiver
         If e.KeyCode = Keys.D Then
             pboxReceiver.Left += 10
         ElseIf e.KeyCode = Keys.A Then
@@ -36,7 +38,7 @@
         ElseIf e.KeyCode = Keys.Down Then
             pboxDefender.Top += 10
         End If
-
+        'Sets the score for when the two characters collide with eachother
         If (Collision(pboxReceiver, pboxBall) = True) Then
             lblScore.Text = "Receiver Score: " + totalScore.ToString
         End If
@@ -44,6 +46,7 @@
         If (Collision(pboxReceiver, pboxDefender) = True) Then
             lblDefendScore.Text = "Defender Score: " + totalScore2.ToString
         End If
+        'This if statement randomizes the placement of the ball on the canvas
         If Collision(pboxReceiver, pboxBall) = True Then
             pboxBall.Top = Int(Rnd() * (520 - 2 * pboxBall.Height) + pboxBall.Height)
             pboxBall.Left = Int(Rnd() * (550 - 2 * pboxBall.Width) + pboxBall.Width)
@@ -69,6 +72,7 @@
 
     End Sub
     Private Function Collision(ByVal Object1 As Object, ByVal Object2 As Object) As Boolean
+        'Collision function
         Dim Collided As Boolean = False
         If Object1.Top + Object1.Height >= Object2.Top And
                 Object2.Top + Object2.Height >= Object1.Top And
@@ -81,6 +85,7 @@
     End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'An array of the other pictureboxes, Incomplete
         Dim arr As System.Windows.Forms.PictureBox() = New PictureBox() {}
         arr(0) = New PictureBox()
         arr(1) = New PictureBox()
